@@ -1,0 +1,21 @@
+services:
+  maven:
+    container_name: my_maven_container
+    build:
+      context: ./docker
+      dockerfile: Dockerfile
+    volumes:
+      - build:/tmp/boxfuse/exam/target
+
+    depends_on:
+      - tomcat
+
+  tomcat:
+    image: tomcat:9.0.0-jre8-alpine 
+    ports:
+      - 8080:8080
+    volumes:
+      - prod:/usr/local/tomcat/webapps/
+volumes:
+    prod:
+    build:
